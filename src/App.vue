@@ -1,28 +1,45 @@
 <template>
-    <div>{{ name }}</div>
-    <div>{{ number }}</div>
+    <div>{{ state.number }}</div>
+    <div>{{ user.name }}</div>
+    <div>{{ post.title }}</div>
+    <div>{{ loading }}</div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { reactive, ref} from 'vue'
 
 
 export default {
     setup() {
-        const name = ref("Adis")
-        const number = ref(0)
+        const state = reactive({
+            number: 0
+        })
+
+        const loading = ref(false)
+        
+        const form = reactive({
+            user: {
+                name: "Nur",
+                username: "adis"
+            },
+            post: {
+                title: "yes",
+                body: "ok"
+            }
+        })
 
         setTimeout(() => {
-            name.value = "izzan"
-            
-        }, 1000)
+            loading.value = true
+            form.user.name ="Mya",
+            form.post.title ="ohhhh"
+        }, 3000);
 
         setInterval(() => {
-          number.value++
+          state.number++
         }, 1000);
 
         return {
-            name, number
+            state, ...form, loading
         }
     }
 }
