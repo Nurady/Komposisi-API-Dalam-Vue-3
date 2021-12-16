@@ -1,47 +1,25 @@
 <template>
-    <div>{{ state.number }}</div>
-    <div>{{ user.name }}</div>
-    <div>{{ post.title }}</div>
-    <div>{{ loading }}</div>
+    <div>
+        <button @click="decrement">-</button>
+        {{ number }}
+        <button @click="increment">+</button>
+    </div>
 </template>
 
 <script>
-import { reactive, toRefs} from 'vue'
-
+import { ref } from 'vue'
+import useCounter from './helper/counter'
 
 export default {
-    setup() {
-        const state = reactive({
-            number: 0
-        })
+   setup() {
+       const number = ref(0)
 
-        
-        const form = reactive({
-            loading: (false),
-            user: {
-                name: "Nur",
-                username: "adis"
-            },
-            post: {
-                title: "yes",
-                body: "ok"
-            }
-        })
+       const { increment, decrement } = useCounter(number)
 
-        setTimeout(() => {
-            form.loading = true
-            form.user.name ="Mya",
-            form.post.title ="ohhhh"
-        }, 3000);
-
-        setInterval(() => {
-          state.number++
-        }, 1000);
-
-        return {
-            state, ...toRefs(form)
-        }
-    }
+       return {
+           number, increment, decrement
+       }
+   }
 }
 </script>
 
