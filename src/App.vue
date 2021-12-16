@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { reactive, ref} from 'vue'
+import { reactive, toRefs} from 'vue'
 
 
 export default {
@@ -15,9 +15,9 @@ export default {
             number: 0
         })
 
-        const loading = ref(false)
         
         const form = reactive({
+            loading: (false),
             user: {
                 name: "Nur",
                 username: "adis"
@@ -29,7 +29,7 @@ export default {
         })
 
         setTimeout(() => {
-            loading.value = true
+            form.loading = true
             form.user.name ="Mya",
             form.post.title ="ohhhh"
         }, 3000);
@@ -39,7 +39,7 @@ export default {
         }, 1000);
 
         return {
-            state, ...form, loading
+            state, ...toRefs(form)
         }
     }
 }
